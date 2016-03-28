@@ -56,7 +56,8 @@ public class NewsAnalysis {
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-02-145c.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-02-300.jpg");
-        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-145.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-145.jpg");
+        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-300.jpg");
 //        Mat inputImageMat = Highgui.imread("G:\\Study\\Thesis\\06-12-2015\\sc-01-300.jpg");
         PixelFileWriter pixelFileWriter = new PixelFileWriter();
         double ratio = 150 / 72.0;  // 4.167
@@ -108,7 +109,7 @@ public class NewsAnalysis {
 
         boolean[] imageIndexer = new boolean[borderItems.size()];
         int[] lineHeight = new int[borderItems.size()];
-        int highestLineHeight = -1, lowestLineHeight = 100000;
+        int highestLineHeight = -1, lowestLineHeight = 10000000;
         int totalHeight = 0, notImage = 0;
 
         for (int i = 0; i < borderItems.size(); i++) {

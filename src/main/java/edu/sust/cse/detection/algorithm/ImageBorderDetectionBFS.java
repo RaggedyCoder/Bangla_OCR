@@ -28,6 +28,7 @@ import java.util.Queue;
  * @author fahad_000
  */
 public class ImageBorderDetectionBFS {
+
     /**
      * This pixel ratio was set by previous author for 96dpi eprothom alo, 145dpi scan image sample
      */
@@ -42,6 +43,7 @@ public class ImageBorderDetectionBFS {
     static int dy[] = {-1, -1, 0, 1, 1, 1, 0, -1};
     
     static int visited[][];
+
     static int width, height;
     static Mat filteredImageMat, inputImageMat;
 
@@ -69,7 +71,7 @@ public class ImageBorderDetectionBFS {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public ArrayList<BorderItem> getBorder(int[][] image,int width,int height, Mat filteredImageMat, Mat inputImageMat) {
+    public ArrayList<BorderItem> getBorder(int[][] blackWhiteImage,int width,int height, Mat filteredImageMat, Mat inputImageMat) {
 
 //        Mat mat = BinaryArrayToMatConvertion.getInstance().doConvertArrayToMat(image,height,width,CvType.CV_32FC1);
 //        ViewerUI.show("WHAT INPUT IMAGE",mat,true);
@@ -77,20 +79,20 @@ public class ImageBorderDetectionBFS {
         int result = 0;
         ImageBorderDetectionBFS.width = width;
         ImageBorderDetectionBFS.height = height;
-        ImageBorderDetectionBFS.visited = image;
+        ImageBorderDetectionBFS.visited = blackWhiteImage;
         ImageBorderDetectionBFS.filteredImageMat = filteredImageMat.clone();
         ImageBorderDetectionBFS.inputImageMat = inputImageMat.clone();
         //ReadFile();
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-                minX = 1000000;
+                minX = 10000000;
                 maxX = -1;
-                minY = 1000000;
+                minY = 10000000;
                 maxY = -1;
-                if (visited[i][j] == 0 && image[i][j]==0) {
+                if (visited[i][j] == 0 && blackWhiteImage[i][j]==0) {
                     result++;
                     countAt = 1;
-                    bfs(image,i, j);
+                    bfs(blackWhiteImage,i, j);
                     System.out.println("PIXEL COUNTS : " + countAt);
 
                     if (countAt > pixelRatio) {

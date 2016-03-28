@@ -3,15 +3,15 @@ package edu.sust.cse.item;
 /**
  * Created by sajid on 12/29/2015.
  */
-public class Pixel {
+public class PointDistance {
     private int horizontalValue;
     private int verticalValue;
 
-    public Pixel() {
+    public PointDistance() {
         this(-1, -1);
     }
 
-    public Pixel(int horizontalValue, int verticalValue) {
+    public PointDistance(int horizontalValue, int verticalValue) {
         this.horizontalValue = horizontalValue;
         this.verticalValue = verticalValue;
     }
@@ -35,9 +35,9 @@ public class Pixel {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Pixel)) return false;
+        if (!(o instanceof PointDistance)) return false;
 
-        Pixel that = (Pixel) o;
+        PointDistance that = (PointDistance) o;
 
         return horizontalValue == that.horizontalValue && verticalValue == that.verticalValue;
 
@@ -52,7 +52,7 @@ public class Pixel {
 
     @Override
     public String toString() {
-        return "Pixel{" +
+        return "PointDistance{" +
                 "horizontalValue=" + horizontalValue +
                 ", verticalValue=" + verticalValue +
                 '}';

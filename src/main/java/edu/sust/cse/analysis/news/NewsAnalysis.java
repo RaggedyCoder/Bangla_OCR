@@ -7,7 +7,7 @@ import edu.sust.cse.analysis.util.Convertion;
 import edu.sust.cse.detection.algorithm.ImageBorderDetectionBFS;
 import edu.sust.cse.item.BorderItem;
 
-import edu.sust.cse.item.Pixel;
+import edu.sust.cse.item.PointDistance;
 import edu.sust.cse.util.*;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -56,8 +56,8 @@ public class NewsAnalysis {
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-02-145c.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-02-300.jpg");
-//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-145.jpg");
-        Mat inputImageMat = Highgui.imread("G:\\Study\\Thesis\\06-12-2015\\sc-01-300.jpg");
+        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-145.jpg");
+//        Mat inputImageMat = Highgui.imread("G:\\Study\\Thesis\\06-12-2015\\sc-01-300.jpg");
         PixelFileWriter pixelFileWriter = new PixelFileWriter();
         double ratio = 150 / 72.0;  // 4.167
         int inputWidth = (int) (inputImageMat.width() * ratio);
@@ -94,10 +94,10 @@ public class NewsAnalysis {
         int width = (int) filteredImageSize.width;
         int height = (int) filteredImageSize.height;
         PointLengthCalculator pointLenCal = new PointLengthCalculator(filteredImage);
-        Pixel[][] pixels = pointLenCal.getPixels();
+        PointDistance[][] pointDistances = pointLenCal.getPointDistances();
         // int[][][] pointLength = pointLenCal.getPointLength();
         // Convertion convertion = new Convertion(filteredImage,pointLength);
-        Convertion convertion = new Convertion(filteredImage, pixels);
+        Convertion convertion = new Convertion(filteredImage, pointDistances);
         int[][] blackWhite = convertion.getBlackWhitePixelInfo();
         Mat convertArea = convertion.getConvertedArea();
         ViewerUI.show("Convertion", convertArea, ViewableUI.SHOW_CONVERSION);

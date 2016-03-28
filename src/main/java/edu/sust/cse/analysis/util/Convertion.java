@@ -1,6 +1,6 @@
 package edu.sust.cse.analysis.util;
 
-import edu.sust.cse.item.Pixel;
+import edu.sust.cse.item.PointDistance;
 import org.opencv.core.Mat;
 
 /**
@@ -42,11 +42,11 @@ public class Convertion {
         doConvertArea(filteredImageMat, pointLength);
     }
 
-    public Convertion(Mat filteredImageMat, Pixel[][] pixels) {
+    public Convertion(Mat filteredImageMat, PointDistance[][] pointDistances) {
 
         this.convertArea = filteredImageMat.clone();
         blackWhite = new int[(int) filteredImageMat.size().height][(int) filteredImageMat.size().width];
-        doConvertArea(filteredImageMat, pixels);
+        doConvertArea(filteredImageMat, pointDistances);
     }
 
     private void doConvertArea(Mat filteredImage, int[][][] pointLength) {
@@ -87,7 +87,7 @@ public class Convertion {
         }
     }
 
-    private void doConvertArea(Mat filteredImage, Pixel[][] pixels) {
+    private void doConvertArea(Mat filteredImage, PointDistance[][] pointDistances) {
         String temp = "";
         int height = (int) filteredImage.size().height;
         int width = (int) filteredImage.size().width;
@@ -104,9 +104,9 @@ public class Convertion {
                     convertArea.put(h, w, data);
                 } else if (
                         /* Anticipated that it lies on the horizontal non-text area, previous thesis page:28*/
-                        (pixels[h][w].getHorizontalValue() > HORIZONTAL_NON_TEXT_AREA_HORIZONTAL_VALUE && pixels[h][w].getVerticalValue() > HORIZONTAL_NON_TEXT_AREA_VERTICAL_VALUE)
+                        (pointDistances[h][w].getHorizontalValue() > HORIZONTAL_NON_TEXT_AREA_HORIZONTAL_VALUE && pointDistances[h][w].getVerticalValue() > HORIZONTAL_NON_TEXT_AREA_VERTICAL_VALUE)
                       /* Anticipated that it lies on the vertical non-text area, previous page:28*/
-                                || (pixels[h][w].getHorizontalValue() > VERTICAL_NON_TEXT_AREA_HORIZONTAL_VALUE && pixels[h][w].getVerticalValue() > VERTICAL_NON_TEXT_AREA_VERTICAL_VALUE)) {
+                                || (pointDistances[h][w].getHorizontalValue() > VERTICAL_NON_TEXT_AREA_HORIZONTAL_VALUE && pointDistances[h][w].getVerticalValue() > VERTICAL_NON_TEXT_AREA_VERTICAL_VALUE)) {
                     temp = temp + "@";
                     blackWhite[h][w] = 1;
                     double[] data = filteredImage.get(h, w);

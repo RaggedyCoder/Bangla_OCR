@@ -135,6 +135,7 @@ public class NewsAnalysis {
             //  totalHeight+=lineHeight[i]+getLineHeight(fake);
             totalHeight += lineHeight[i] = getLineHeight(fake);
             //  System.out.print(totalHeight+" ");
+           // ViewerUI.show("Fake Matrix",fake,true);
 
             fake.release();
             // System.out.println("line height " + i + ": " + lineHeight[i]);

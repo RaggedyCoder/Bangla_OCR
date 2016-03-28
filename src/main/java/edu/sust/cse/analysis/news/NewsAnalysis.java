@@ -101,9 +101,7 @@ public class NewsAnalysis {
         int[][] blackWhite = convertion.getBlackWhitePixelInfo();
         Mat convertArea = convertion.getConvertedArea();
         ViewerUI.show("Convertion", convertArea, ViewableUI.SHOW_CONVERSION);
-//        ViewerUI.show("Convertion-Histogram", Histogram.getHistogram(convertArea), ViewableUI.SHOW_HISTOGRAM_CONVERSION);
-//        ImageDetection isImage = new ImageDetection();
-//        HeadlineDetection isHeadline = new HeadlineDetection();
+
         ImageBorderDetectionBFS imgBFS = new ImageBorderDetectionBFS();
         ArrayList<BorderItem> borderItems = imgBFS.getBorder(blackWhite, width, height, filteredImage, inputImageMat);
         System.out.println("Border Item Founds: " + borderItems.size());

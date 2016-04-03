@@ -114,7 +114,7 @@ public class ImageBorderDetectionBFS {
     }
 
     static void bfs(int[][] image,int x, int y) {
-        Queue<Integer> q = new LinkedList<Integer>();
+        Queue<Integer> q = new LinkedList<>();
 
         visited[x][y] = 1;
         
@@ -192,6 +192,7 @@ public class ImageBorderDetectionBFS {
         
         ImageDetection isImage = new ImageDetection();
         if (isImage.isImage(subMat2)) {
+
             Mat subMat=new Mat();
             try {
                  subMat = inputImageMat.submat(item.getMinX(), item.getMaxX(),

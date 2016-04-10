@@ -93,7 +93,7 @@ public class ImageBorderDetectionBFS {
                     result++;
                     countAt = 1;
                     bfs(blackWhiteImage,i, j);
-                    System.out.println("PIXEL COUNTS : " + countAt);
+                   // System.out.println("PIXEL COUNTS : " + countAt);
 
                     if (countAt > pixelRatio) {
                         canMaxiMizeBorder(minX, maxX, minY, maxY,width, height);

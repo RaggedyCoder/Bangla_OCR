@@ -20,6 +20,7 @@ public class ViewableUI {
     public static boolean SHOW_HEADING=true;
     public static boolean SHOW_SUB_HEADING=true;
     public static boolean SHOW_COLUMN=true;
+    public static boolean SHOW_GARBAGE=true;
     public static boolean SHOW_SUB_COLUMN=true;
     public static boolean SHOW_DEBUG_LOG=true;
 

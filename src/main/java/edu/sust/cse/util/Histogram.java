@@ -133,6 +133,7 @@ public class Histogram {
                 }
             }
         }
+        System.out.println("[HISTOGRAM_OPENING]["+title+"]");
         ViewerUI.show(title, imageMatrix, ViewableUI.SHOW_HISTOGRAM_IMAGE);
     }
 }

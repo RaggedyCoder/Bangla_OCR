@@ -324,16 +324,16 @@ public class ImageBorderDetectionBFS {
             for(int i=iMinX; i<iMaxX; i++){
                 for(int j=iMinY; j<iMaxY; j++){
                     data = mLocal.get(i, j);
-                    data[0] = 255.0;
-                    data[1] = 255.0;
-                    data[2] = 255.0;
+                    for(int k=0;k<data.length;k++){
+                        data[k]=255.0;
+                    }
                     mLocal.put(i, j, data);
                 }
             }
         }
         
         //NewsAnalysis.imshow("img_removed", mLocal);
-        ViewerUI.show("Image Removed",mLocal, ViewableUI.SHOW_IMAGE_REMOVED);
+        ViewerUI.show("IMAGE_REMOVED_INPUT",mLocal, ViewableUI.SHOW_IMAGE_REMOVED);
 //        return;
         
         for(int i=0; i<otherItems.size(); i++){

@@ -17,66 +17,48 @@ public class Histogram {
 
     private static Mat verticalHistogramMatrix;
 
-    /*public static Mat getHistogram(Mat image) {
-
-        try {
-            Mat src = new Mat(image.height(), image.width(), CvType.CV_8UC2);
-            Imgproc.cvtColor(image, src, Imgproc.COLOR_RGB2GRAY);
-            ArrayList<Mat> bgr_planes = new ArrayList<Mat>();
-            Core.split(src, bgr_planes);
-
-            MatOfInt histSize = new MatOfInt(256);
-
-            final MatOfFloat histRange = new MatOfFloat(0f, 256f);
-
-            boolean accumulate = false;
-
-            Mat b_hist = new Mat();
-
-            Imgproc.calcHist(bgr_planes, new MatOfInt(0), new Mat(), b_hist, histSize, histRange, accumulate);
-
-            int hist_w = 512;
-            int hist_h = 600;
-            long bin_w;
-            bin_w = Math.round((double) (hist_w / 256));
-
-            Mat histImage = new Mat(hist_h, hist_w, CvType.CV_8UC1);
-
-            Core.normalize(b_hist, b_hist, 3, histImage.rows(), Core.NORM_MINMAX);
-
-            for (int i = 1; i < 256; i++) {
-
-                Core.line(histImage, new Point(bin_w * (i - 1), hist_h - Math.round(b_hist.get(i - 1, 0)[0])),
-                        new Point(bin_w * (i), hist_h - Math.round(Math.round(b_hist.get(i, 0)[0]))),
-                        new Scalar(255, 0, 0), 2, 8, 0);
-
-            }
-
-            return histImage;
-        } catch (Exception ex) {
-            System.out.println("[HISTOGRAM][ERROR][" + ex.getMessage() + "]");
-            return null;
-        }
-    }*/
-
 
     public static void showHistogram(Mat filteredImage) {
-        Mat thershedImage = new Mat();
-        Imgproc.threshold(filteredImage, thershedImage, 180, 255, Imgproc.THRESH_BINARY_INV);
-        ViewerUI.show("Image-Histogram", thershedImage, ViewableUI.SHOW_HISTOGRAM_IMAGE);
+        Mat threshedImage = new Mat();
+        Imgproc.threshold(filteredImage, threshedImage, 170, 255, Imgproc.THRESH_BINARY);
+//        ViewerUI.show("Image-Histogram", threshedImage, ViewableUI.SHOW_HISTOGRAM_IMAGE);
+        Imgproc.cvtColor(threshedImage, threshedImage, Imgproc.COLOR_RGB2GRAY);
+        verticalHistogram(threshedImage);
+        horizontalHistogram(threshedImage);
+        bothHistogramWithFilteredImage(threshedImage);
 
-        Imgproc.cvtColor(thershedImage, thershedImage, Imgproc.COLOR_RGB2GRAY);
-        verticalHistogram(thershedImage);
-        horizontalHistogram(thershedImage);
-        bothHistogramWithFilteredImage(filteredImage);
+    }
 
+    public static void showHistogram(String title, Mat filteredImage) {
+        Mat threshedImage = new Mat();
+        Imgproc.threshold(filteredImage, threshedImage, 175, 255, Imgproc.THRESH_BINARY);
+//        ViewerUI.show(title, threshedImage, ViewableUI.SHOW_HISTOGRAM_IMAGE);
+        Imgproc.cvtColor(threshedImage, threshedImage, Imgproc.COLOR_RGB2GRAY);
+        verticalHistogram(threshedImage);
+        horizontalHistogram(threshedImage);
+        bothHistogramWithFilteredImage(title, threshedImage);
+
+    }
+
+    public static double[] getLinePercetageFromHistogram(Mat filteredImage, double linePercentageThresHold) {
+        Mat threshedImage = new Mat();
+        Imgproc.threshold(filteredImage, threshedImage, 175, 255, Imgproc.THRESH_BINARY_INV);
+        Imgproc.cvtColor(threshedImage, threshedImage, Imgproc.COLOR_RGB2GRAY);
+        double vPer = verticalHistogram(threshedImage,linePercentageThresHold);
+        double hPer = horizontalHistogram(threshedImage,linePercentageThresHold);
+        double[] values = {vPer,hPer};
+        return values;
     }
 
 
     private static void horizontalHistogram(Mat threshedImage) {
+       horizontalHistogram(threshedImage,0.0);
+     //   ViewerUI.show("HISTOGRAM_HORIZONTAL", horizontalHistogramMatrix, ViewableUI.SHOW_HISTOGRAM_IMAGE);
+    }
+
+    private static double horizontalHistogram(Mat threshedImage, double linePercentageThreshold) {
 
         Mat rowMatrix;
-
         int numOfRows = threshedImage.rows();
         int numOfNonZeros;
         int max = Integer.MIN_VALUE;
@@ -90,22 +72,30 @@ public class Histogram {
         int width = max;
         int height = numOfRows;
         horizontalHistogramMatrix = Mat.zeros(new Size(width, height), CvType.CV_8U);
+        int count = 0;
         for (int i = 0; i < height; i++) {
+            double percentage = (numOfNonZerosPerRows[i] * 100.0) / (max*1.0);
+            count = percentage > linePercentageThreshold ? count+1 : count;
             Core.line(horizontalHistogramMatrix, new Point(0, i), new Point(numOfNonZerosPerRows[i], i), new Scalar(255));
         }
-        ViewerUI.show("Histogram-Horizontal", horizontalHistogramMatrix, ViewableUI.SHOW_HISTOGRAM_IMAGE);
+        return count*100.0/(height*1.0);
     }
 
     private static void verticalHistogram(Mat thershedImage) {
 
-        Mat columnMatrix;
+        verticalHistogram(thershedImage,0.0);
+      //  ViewerUI.show("HISTOGRAM_VERTICAL", verticalHistogramMatrix, ViewableUI.SHOW_HISTOGRAM_IMAGE);
+    }
 
-        int numOfColumns = thershedImage.cols();
+    private static double verticalHistogram(Mat threshedImage, double linePercentageThreshold) {
+
+        Mat columnMatrix;
+        int numOfColumns = threshedImage.cols();
         int numOfNonZeros;
         int max = Integer.MIN_VALUE;
         int numOfNonZerosPerColumns[] = new int[numOfColumns];
         for (int i = 0; i < numOfColumns; i++) {
-            columnMatrix = thershedImage.col(i);
+            columnMatrix = threshedImage.col(i);
             numOfNonZeros = Core.countNonZero(columnMatrix);
             numOfNonZerosPerColumns[i] = numOfNonZeros;
             max = Math.max(numOfNonZeros, max);
@@ -113,13 +103,20 @@ public class Histogram {
         int width = numOfColumns;
         int height = max;
         verticalHistogramMatrix = Mat.zeros(new Size(width, height), CvType.CV_8U);
+        int count=0;
         for (int i = 0; i < width; i++) {
+            double percentage = (numOfNonZerosPerColumns[i] * 100.0) / (max*1.0f);
+            count = percentage > linePercentageThreshold ? count+1 : count;
             Core.line(verticalHistogramMatrix, new Point(i, max), new Point(i, max - numOfNonZerosPerColumns[i]), new Scalar(255));
         }
-        ViewerUI.show("Histogram-Vertical", verticalHistogramMatrix, ViewableUI.SHOW_HISTOGRAM_IMAGE);
+        return count*100.0/(width*1.0);
     }
 
     private static void bothHistogramWithFilteredImage(Mat filteredImage) {
+        bothHistogramWithFilteredImage("IMAGE_WITH_HISTOGRAM",filteredImage);
+    }
+
+    private static void bothHistogramWithFilteredImage(String title, Mat filteredImage) {
         int width = horizontalHistogramMatrix.cols() + verticalHistogramMatrix.cols();
         int height = verticalHistogramMatrix.rows() + horizontalHistogramMatrix.rows();
         Mat imageMatrix = Mat.zeros(new Size(width, height), CvType.CV_16UC1);
@@ -136,6 +133,6 @@ public class Histogram {
                 }
             }
         }
-        ViewerUI.show("Image-WITH HISTOGRAM", imageMatrix, ViewableUI.SHOW_HISTOGRAM_IMAGE);
+        ViewerUI.show(title, imageMatrix, ViewableUI.SHOW_HISTOGRAM_IMAGE);
     }
 }

@@ -54,14 +54,30 @@ public class NewsAnalysis {
        * C:\Users\sajid\Desktop\ScanImage\06-12-2015*/
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-145c.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c.jpg");
-   //     Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-300.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-300.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-02-145c.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-02-300.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-145.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-300c.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-04-300.jpg");
 //        Mat inputImageMat = Highgui.imread("G:\\Study\\Thesis\\06-12-2015\\sc-01-300.jpg");D:\OpenCV_Library\resources\Scan_Img\image
-        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\etable_sample_1.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\etable_sample_1.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-01.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-02.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-03.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-t-01.jpg");
+        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-t-02.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-t-03.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-t-04.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-t-05.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\Image0.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\Image1.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\Image2.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\table\\t-1.png");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\table\\t-2.png");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\table\\t-3.png");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\table\\t-4.png");
+//        Mat inputImageMat = Highgui.imread("D:\\1.jpeg");
 
         PixelFileWriter pixelFileWriter = new PixelFileWriter();
         double ratio = 150 / 72.0;  // 4.167
@@ -72,6 +88,7 @@ public class NewsAnalysis {
 
         // Do some image processing on the image and display in another window.
 
+
         /**
          * We have explained some filters which main goal is to smooth an input
          * image. However, sometimes the filters do not only dissolve the noise,
@@ -79,17 +96,25 @@ public class NewsAnalysis {
          */
         Mat filteredImage = new Mat();
         Imgproc.bilateralFilter(inputImageMat, filteredImage, -1, 50, 10);
+        ViewerUI.show("NOISE_FILTER", filteredImage, ViewableUI.SHOW_NOISE_FILTER);
 
-        ViewerUI.show("Noise Filter", filteredImage, ViewableUI.SHOW_NOISE_FILTER);
+        Mat threshedImage = new Mat();
+        Imgproc.threshold(filteredImage, threshedImage, 175, 255, Imgproc.THRESH_BINARY);
+        filteredImage=threshedImage.clone();
+
+        ViewerUI.show("PIXEL_REPLACED_FILTER", threshedImage, ViewableUI.SHOW_NOISE_FILTER);
+
+
 //        pixelFileWriter.writePixelInFile("NoiseFilter-3-300c.txt",filteredImage);
-        Histogram.showHistogram(filteredImage);
+       Histogram.showHistogram("FULL_IMAGE_HISTOGRAM",filteredImage);
+
 //        ViewerUI.show("Noise Filter-Histogram", Histogram.getHistogram(filteredImage), ViewableUI.SHOW_HISTOGRAM_NOISE_FILTER);
         Imgproc.Canny(filteredImage, filteredImage, 10, 150);
 //        Imgproc.bilateralFilter(filteredImage, filteredImage, -1, 50, 10);
 //        Imgproc.threshold(filteredImage, filteredImage, 250, 300,Imgproc.ADAPTIVE_THRESH_GAUSSIAN_C );
         //Imgproc.cvtColor(m1, m1, Imgproc.COLOR_RGB2GRAY, 0);
 //        imshow("Edge Detected", m2);
-        ViewerUI.show("Edge Detected", filteredImage, ViewableUI.SHOW_EDGE_DETECTION);
+        ViewerUI.show("EDGE_DETECTED", filteredImage, ViewableUI.SHOW_EDGE_DETECTION);
 //        pixelFileWriter.writePixelInFile("EdgeDetectedPixels-3-300c.txt",filteredImage);
 //        pixelFileWriter.writeInFile("EdgeDetected-01-200c.txt"," ","0",filteredImage);
 //        ViewerUI.show("Edge Detected-Histogram", Histogram.getHistogram(filteredImage), ViewableUI.SHOW_HISTOGRAM_EDGE_DETECTION);
@@ -105,10 +130,11 @@ public class NewsAnalysis {
         Conversion conversion = new Conversion(filteredImage, pointDistances);
         int[][] blackWhite = conversion.getBlackWhitePixelInfo();
         Mat convertArea = conversion.getConvertedArea();
-        ViewerUI.show("Conversion", convertArea, ViewableUI.SHOW_CONVERSION);
+        ViewerUI.show("CONVERSION", convertArea, ViewableUI.SHOW_CONVERSION);
 
         ImageBorderDetectionBFS imgBFS = new ImageBorderDetectionBFS();
-        ArrayList<BorderItem> borderItems = imgBFS.getBorder(blackWhite, width, height, filteredImage, inputImageMat);
+//        ArrayList<BorderItem> borderItems = imgBFS.getBorder(blackWhite, width, height, filteredImage, inputImageMat);
+        ArrayList<BorderItem> borderItems = imgBFS.getBorder(blackWhite, width, height, filteredImage, threshedImage);
         System.out.println("Border Item Founds: " + borderItems.size());
 
         boolean[] imageIndexer = new boolean[borderItems.size()];
@@ -120,11 +146,33 @@ public class NewsAnalysis {
             lineHeight[i] = 0;
             BorderItem borderItem = borderItems.get(i);
             if (borderItem.getIsImage()) {
-                //   System.out.println("subMat" + i + " is an image");
-//                imshow("Image" + i, borderItem.getBlock());
-                ViewerUI.show("Image" + i, borderItem.getBlock(), ViewableUI.SHOW_IMAGE);
-                Mat thersoldImage = new Mat();
 
+                /*
+                    Only Block Histogram Showing
+                 */
+                double[] linePercetage = Histogram.getLinePercetageFromHistogram(borderItem.getBlock(),80.0);
+                String vPer = String.format("%.2f",linePercetage[0]);
+                String hPer = String.format("%.2f",linePercetage[1]);
+
+//                for(int thres=70;thres<=100;thres++){
+//                    linePercetage=Histogram.getLinePercetageFromHistogram(borderItem.getBlock(),thres);
+//                     vPer = String.format("%.2f",linePercetage[0]);
+//                     hPer = String.format("%.2f",linePercetage[1]);
+//                    System.out.println("[BLOCK: "+i+"] [Thresdhold: " +thres +"][H: " + hPer + " ][V: " + vPer+"]");
+//                }
+
+                if(linePercetage[0]<4.5 && linePercetage[1]<4.5) {
+                    Histogram.showHistogram("TABLE_"+i+"_HISTOGRAM", borderItem.getBlock());
+                    ViewerUI.show("[IDX_" + i + " ][V][" + vPer + "][H][" + hPer + "]_TABLE", borderItem.getBlock(), ViewableUI.SHOW_IMAGE);
+                }else {
+                    Histogram.showHistogram("IMAGE_"+i+"_HISTOGRAM", borderItem.getBlock());
+                    ViewerUI.show("[IDX_" + i + " ][V][" + vPer + "][H][" + hPer + "]_IMAGE", borderItem.getBlock(), ViewableUI.SHOW_IMAGE);
+                }
+                    Mat thersoldImage = new Mat();
+              //  pixelFileWriter.writePixelInFile("table_file"+i+".txt",borderItem.getBlock());
+                System.out.println("Count At: " + borderItem.getCountAt());
+            //    pixelFileWriter.writeInFile("table_file"+i+".txt"," ","0",filteredImage);
+                System.out.println("Blocks : " + i + " VPer: " + linePercetage[0]+" HPer: " +linePercetage[1]);
 //                ViewerUI.show("Image-Histogram" + i, Histogram.getHistogram(borderItem.getBlock()), ViewableUI.SHOW_HISTOGRAM_IMAGE);
                 imageIndexer[i] = true;
                 continue;
@@ -234,17 +282,17 @@ public class NewsAnalysis {
             if (!imageIndexer[i]) {
                 if (lineHeight[i] >= 160) {
                     System.out.println("HeadLine");
-                    ViewerUI.show("Index - "+i+" [LineHeight_" + lineHeight[i] + "]_Headline" + i, borderItems.get(i).getBlock(), ViewableUI.SHOW_HEADING);
+                    ViewerUI.show("[IDX_"+i+"][LINE_HEIGHT_" + lineHeight[i] + "]_HEADLINE", borderItems.get(i).getBlock(), ViewableUI.SHOW_HEADING);
 //                    ViewerUI.show("Headline-Histogram" + i, Histogram.getHistogram(borderItems.get(i).getBlock()), ViewableUI.SHOW_HISTOGRAM_HEADING);
 
                 } else if ( lineHeight[i] >= 48 && lineHeight[i] < 75) {
                     System.out.println("Sub HeadLine");
-                    ViewerUI.show("Index - "+i+" [LineHeight_" + lineHeight[i] + "]_Sub_Headline" + i, borderItems.get(i).getBlock(), ViewableUI.SHOW_SUB_HEADING);
+                    ViewerUI.show("[IDX_"+i+"][LINE_HEIGHT_" + lineHeight[i] + "]_SUB_HEADLINE", borderItems.get(i).getBlock(), ViewableUI.SHOW_SUB_HEADING);
 //                    ViewerUI.show("Sub Headline-Histogram" + i, Histogram.getHistogram(borderItems.get(i).getBlock()), ViewableUI.SHOW_HISTOGRAM_SUB_HEADING);
 
                 } else {
                     System.out.println("Column");
-                    ViewerUI.show("Index - "+i+" [LineHeight_" + lineHeight[i] + "]_Column" + i, borderItems.get(i).getBlock(), ViewableUI.SHOW_COLUMN);
+                    ViewerUI.show("[IDX_"+i+"][LINE_HEIGHT_" + lineHeight[i] + "]_COLUMN", borderItems.get(i).getBlock(), ViewableUI.SHOW_COLUMN);
 //                    ViewerUI.show("Column-Histogram" + i, Histogram.getHistogram(borderItems.get(i).getBlock()), ViewableUI.SHOW_HISTOGRAM_COLUMN);
 
                 }

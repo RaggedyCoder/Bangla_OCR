@@ -53,8 +53,7 @@ public class NewsAnalysis {
         /*
         * For Tuman
        * C:\Users\sajid\Desktop\ScanImage\06-12-2015*/
-        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c.jpg");
-//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-300.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-02-300.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-300.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-04-300.jpg");
@@ -63,7 +62,7 @@ public class NewsAnalysis {
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-01.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-02.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-03.jpg");
-//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-04.jpg");
+        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-04.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-05.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-06.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-07.jpg");
@@ -290,7 +289,7 @@ public class NewsAnalysis {
                  //   Histogram.showHistogram("[HEADLINE_" + i + "][LH_" + lineHeight[i]+"]_HISTOGRAM", borderItems.get(i).getBlock());
                     ViewerUI.show("[HEADLINE_" + i + "[LINE_HEIGHT_"+blockLineHeights[i]+"_]", borderItems.get(i).getBlock(), ViewableUI.SHOW_HEADING);
                     contentTypes[i] = ContentType.HEADLINE;
-                } else if (blockLineHeights[i] >= 48 && blockLineHeights[i] < 100) {
+                } else if (blockLineHeights[i] >= 45 && blockLineHeights[i] < 100) {
                    // Histogram.showHistogram("[SUB_HEADLINE_" + i + "][LH_" + lineHeight[i]+"]_HISTOGRAM", borderItems.get(i).getBlock());
                     ViewerUI.show("[SUB_HEADLINE_" + i + "][LINE_HEIGHT_"+blockLineHeights[i]+"_]", borderItems.get(i).getBlock(), ViewableUI.SHOW_SUB_HEADING);
                     contentTypes[i] = ContentType.SUB_HEADLINE;

@@ -7,14 +7,11 @@ package edu.sust.cse.detection.algorithm;
  */
 
 
-import edu.sust.cse.analysis.news.NewsAnalysis;
-import edu.sust.cse.analysis.util.BinaryArrayToMatConvertion;
 import edu.sust.cse.detection.ImageDetection;
 import edu.sust.cse.item.BorderItem;
 import edu.sust.cse.util.ViewableUI;
 import edu.sust.cse.util.ViewerUI;
 import org.opencv.core.Core;
-import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
 import java.awt.image.BufferedImage;
@@ -32,12 +29,12 @@ public class ImageBorderDetectionBFS {
     /**
      * This pixel ratio was set by previous author for 96dpi eprothom alo, 145dpi scan image sample
      */
-//    private final int pixelRatio = 1500;
+//    private final int pixelCount = 1500;
 
     /**
      * This pixel ratio was set for 300dpi scan image sample, but it also works fine at previous value
      */
-    private final int pixelRatio = 3000;
+    private final int pixelCount = 3000;
 
     static int dx[] = {0, -1, -1, -1, 0, 1, 1, 1};
     static int dy[] = {-1, -1, 0, 1, 1, 1, 0, -1};
@@ -95,7 +92,7 @@ public class ImageBorderDetectionBFS {
                     bfs(blackWhiteImage,i, j);
                    // System.out.println("PIXEL COUNTS : " + countAt);
 
-                    if (countAt > pixelRatio) {
+                    if (countAt > pixelCount) {
                         canMaxiMizeBorder(minX, maxX, minY, maxY,width, height);
                         BorderItem item = new BorderItem(countAt, minX, maxX, minY, maxY, maxX-minX+1, maxY-minY+1);
                         categorize(item, filteredImageMat);                       

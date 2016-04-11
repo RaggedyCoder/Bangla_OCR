@@ -96,7 +96,7 @@ public class LineHeightCalculator {
             System.out.print(height+" ");
         }
         System.out.println();
-        heights = getHeightsAfterGarbageFilter(heights,25);
+        heights = getHeightsAfterGarbageFilter(heights,18);
         double average;
         double sum=0.0f;
         System.out.print("GARBAGE FILTER HEIGHT: ");

@@ -53,12 +53,9 @@ public class NewsAnalysis {
         /*
         * For Tuman
        * C:\Users\sajid\Desktop\ScanImage\06-12-2015*/
-//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-145c.jpg");
         Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-300.jpg");
-//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-02-145c.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-02-300.jpg");
-//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-145.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-300.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-04-300.jpg");
 //        Mat inputImageMat = Highgui.imread("G:\\Study\\Thesis\\06-12-2015\\sc-01-300.jpg");D:\OpenCV_Library\resources\Scan_Img\image
@@ -87,7 +84,6 @@ public class NewsAnalysis {
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\table\\t-3.png");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\table\\t-4.png");
 //        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\[SUB_HEADLINE_9][LINE_HEIGHT_64_64_]_2016-04-11_12-17_AM.jpg");
-
         PixelFileWriter pixelFileWriter = new PixelFileWriter();
         ViewerUI.show("ORIGINAL", inputImageMat, ViewableUI.SHOW_ORIGINAL);
 
@@ -176,7 +172,7 @@ public class NewsAnalysis {
             Imgproc.threshold(subBlock, subBlock, 175, 255, Imgproc.THRESH_BINARY);
             LineHeightCalculator heightCalculator = new LineHeightCalculator();
             int blockHeight = heightCalculator.getLineHeight(subBlock,i);
-            totalHeight += blockLineHeights[i] =blockHeight;
+            totalHeight += blockLineHeights[i]=blockHeight;
             subBlock.release();
 
             if (blockLineHeights[i] > highestLineHeight) {
@@ -311,10 +307,12 @@ public class NewsAnalysis {
             }
         }
 
+
         for(int i=0;i<blockLineHeights.length;i++){
             if(!imageIndexer[i])
-                System.out.println(blockLineHeights[i]);
+                System.out.print(blockLineHeights[i]+" ");
         }
+        System.out.println("");
 
     }
 

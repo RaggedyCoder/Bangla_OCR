@@ -4,7 +4,7 @@ import edu.sust.cse.item.PointDistance;
 import org.opencv.core.Mat;
 
 /**
- * Created by Biswajit Debnath on 25-Dec-15.
+ * Created by Sajid Shahriar on 25-Dec-15.
  */
 public class Conversion {
 

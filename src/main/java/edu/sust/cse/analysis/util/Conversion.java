@@ -21,18 +21,17 @@ public class Conversion {
 //    private final int VERTICAL_NON_TEXT_AREA_HORIZONTAL_VALUE=7;
 //    private final int VERTICAL_NON_TEXT_AREA_VERTICAL_VALUE=200;
 
-       // Constaint Value For 145dpi
+    // Constraint Value For 145dpi
 //    private final int HORIZONTAL_NON_TEXT_AREA_VERTICAL_VALUE = (int) (6 * 1.35);
 //    private final int HORIZONTAL_NON_TEXT_AREA_HORIZONTAL_VALUE = (int) (150 * 1.20);
 //    private final int VERTICAL_NON_TEXT_AREA_HORIZONTAL_VALUE = (int) (7 * 1.30);
 //    private final int VERTICAL_NON_TEXT_AREA_VERTICAL_VALUE = (int) (200 * 1.35);
 
-    // Constaint Value For 300dpi
+    // Constraint Value For 300dpi
     private final int HORIZONTAL_NON_TEXT_AREA_VERTICAL_VALUE = (int) (6 * 1.60);
     private final int HORIZONTAL_NON_TEXT_AREA_HORIZONTAL_VALUE = (int) (150 * 1.20);
     private final int VERTICAL_NON_TEXT_AREA_HORIZONTAL_VALUE = (int) (7 * 2.60);
     private final int VERTICAL_NON_TEXT_AREA_VERTICAL_VALUE = (int) (200 * 2.70);
-
 
 
     public Conversion(Mat filteredImageMat, int[][][] pointLength) {

@@ -298,7 +298,6 @@ public class NewsAnalysis {
                    // Histogram.showHistogram("[COLUMN_" + i + "][LH_" + lineHeight[i] + "]_HISTOGRAM", borderItems.get(i).getBlock());
                     ViewerUI.show("[COLUMN_" + i + "][LINE_HEIGHT_"+blockLineHeights[i]+"_]", borderItems.get(i).getBlock(), ViewableUI.SHOW_COLUMN);
                     contentTypes[i] = ContentType.COLUMN;
-
                 }else{
                     ViewerUI.show("[GARBAGE_" + i + "]", borderItems.get(i).getBlock(), ViewableUI.SHOW_GARBAGE);
                     contentTypes[i] = ContentType.UNKNOWN;

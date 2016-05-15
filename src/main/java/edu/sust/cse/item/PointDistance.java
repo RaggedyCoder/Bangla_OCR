@@ -1,14 +1,15 @@
 package edu.sust.cse.item;
 
 /**
- * Created by sajid on 12/29/2015.
+ * After Using the <b>Canny Algorithm</b> to detect the <b>Edge</b> in a Document
+ *
  */
 public class PointDistance {
     private int horizontalValue;
     private int verticalValue;
 
     public PointDistance() {
-        this(-1, -1);
+        this(0, 0);
     }
 
     public PointDistance(int horizontalValue, int verticalValue) {

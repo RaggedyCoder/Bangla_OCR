@@ -8,86 +8,95 @@ import org.opencv.core.Mat;
  */
 public class PointLengthCalculator {
 
-    private int[][][] pointLength;
     private PointDistance[][] pointDistances;
 
+    private Mat filterImage;
+
+    private int width;
+    private int height;
+
     public PointLengthCalculator(Mat filterImage) {
-        int width = (int) filterImage.size().width;
-        int height = (int) filterImage.size().height;
-        pointLength = new int[height][width][2];
+        width = (int) filterImage.size().width;
+        height = (int) filterImage.size().height;
+        this.filterImage = filterImage;
         pointDistances = new PointDistance[height][width];
-        doCalculate(filterImage);
+        doCalculate();
     }
 
-    private void doCalculate(Mat filteredImage) {
-
-        int width = (int) filteredImage.size().width;
-        int height = (int) filteredImage.size().height;
+    private void doCalculate() {
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
-
-                //New System 2
                 pointDistances[i][j] = new PointDistance();
 
-                //double[] data = m2.get(i, j);
-                if (filteredImage.get(i, j)[0] != 0) {
-                    //Old System
-                    pointLength[i][j][0] = 0;
-                    //New System 2
+                if (filterImage.get(i, j)[0] != 0) {
                     pointDistances[i][j].setHorizontalValue(0);
-                    //Old System
-                    pointLength[i][j][1] = 0;
-                    //New System 1
-                    //New System 2
                     pointDistances[i][j].setVerticalValue(0);
                     continue;
                 }
-
-                if (j != 0 && filteredImage.get(i, j - 1)[0] == 0) {
-                    //Old System
-                    pointLength[i][j][0] = pointLength[i][j - 1][0];
-                    //New System 1
-                    //New System 2
+                /*axisWiseCalculation(i, j, Axis.HORIZONTAL);
+                axisWiseCalculation(i, j, Axis.VERTICAL);*/
+                if (j != 0 && filterImage.get(i, j - 1)[0] == 0) {
                     pointDistances[i][j].
                             setHorizontalValue(pointDistances[i][j - 1].getHorizontalValue());
                 } else {
                     int count = 0;
                     for (int k = j + 1; k < width; k++) {
-                        if (filteredImage.get(i, k)[0] == 0) {
+                        if (filterImage.get(i, k)[0] == 0) {
                             count++;
                         } else {
                             break;
                         }
                     }
-                    //Old System
-                    pointLength[i][j][0] = count;
-                    //New System 1
-                    //New System 2
                     pointDistances[i][j].setHorizontalValue(count);
                 }
 
-                if (i != 0 && filteredImage.get(i - 1, j)[0] == 0) {
-                    //Old System
-                    pointLength[i][j][1] = pointLength[i - 1][j][1];
-                    //New System 1
-                    //New System 2
+                if (i != 0 && filterImage.get(i - 1, j)[0] == 0) {
                     pointDistances[i][j].setVerticalValue(pointDistances[i - 1][j].getVerticalValue());
                 } else {
                     int count = 0;
                     for (int k = i + 1; k < height; k++) {
-                        if (filteredImage.get(k, j)[0] == 0) {
+                        if (filterImage.get(k, j)[0] == 0) {
                             count++;
                         } else {
                             break;
                         }
                     }
-                    //Old System
-                    pointLength[i][j][1] = count;
-                    //New System 1
-                    //New System 2
                     pointDistances[i][j].setVerticalValue(count);
                 }
+            }
+        }
+    }
+
+    private void axisWiseCalculation(int column, int row, Axis axis) {
+        int columnPoint = axis.equals(Axis.VERTICAL) ? column - 1 : column;
+        int rowPoint = axis.equals(Axis.HORIZONTAL) ? row - 1 : row;
+        int analysisPoint = axis.equals(Axis.VERTICAL) ? column : row;
+        if (analysisPoint != 0 && filterImage.get(columnPoint, rowPoint)[0] == 0) {
+            switch (axis) {
+                case HORIZONTAL:
+                    pointDistances[column][row].setHorizontalValue(pointDistances[columnPoint][rowPoint].getHorizontalValue());
+                    break;
+                case VERTICAL:
+                    pointDistances[column][row].setVerticalValue(pointDistances[columnPoint][rowPoint].getVerticalValue());
+                    break;
+            }
+        } else {
+            int count = 0;
+            for (int i = (axis.equals(Axis.VERTICAL) ? column : row) + 1; i < (axis.equals(Axis.VERTICAL) ? height : width); i++) {
+                if (filterImage.get((axis.equals(Axis.VERTICAL) ? i : column), (axis.equals(Axis.HORIZONTAL) ? i : row))[0] == 0) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+            switch (axis) {
+                case HORIZONTAL:
+                    pointDistances[column][row].setHorizontalValue(count);
+                    break;
+                case VERTICAL:
+                    pointDistances[column][row].setVerticalValue(count);
+                    break;
             }
         }
     }
@@ -96,7 +105,4 @@ public class PointLengthCalculator {
         return this.pointDistances;
     }
 
-    public int[][][] getPointLength() {
-        return this.pointLength;
-    }
 }

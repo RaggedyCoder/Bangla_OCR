@@ -17,7 +17,6 @@ import org.opencv.highgui.Highgui;
 import org.opencv.imgproc.Imgproc;
 
 import javax.imageio.ImageIO;
-import javax.sound.sampled.Line;
 import javax.swing.*;
 
 import java.awt.*;
@@ -53,7 +52,7 @@ public class NewsAnalysis {
         /*
         * For Tuman
        * C:\Users\sajid\Desktop\ScanImage\06-12-2015*/
-//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c.jpg");
+        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-02-300.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-300.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-04-300.jpg");
@@ -62,19 +61,21 @@ public class NewsAnalysis {
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-01.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-02.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-03.jpg");
-        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-04.jpg");
+//       Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-04.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-05.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-06.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-07.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-08.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-09.jpg");
-//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-10.jpg");
+ //       Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-10.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\[COLUMN_8][LINE_HEIGHT_32_]_2016-05-14_09-18_PM.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-11.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-t-01.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-t-02.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-t-03.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-t-04.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\07-04-16\\sc-t-05.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\Biswajit\\4-2\\CSE 425\\Class Notes\\CSE_425_01_1_01.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\Image0.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\Image1.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\Image2.jpg");
@@ -83,6 +84,10 @@ public class NewsAnalysis {
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\table\\t-3.png");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\table\\t-4.png");
 //        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\[SUB_HEADLINE_9][LINE_HEIGHT_64_64_]_2016-04-11_12-17_AM.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\[COLUMN_7][LINE_HEIGHT_0_]_2016-05-15_01-38_PM.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\[SUB_HEADLINE_19][LINE_HEIGHT_46_]_2016-05-15_01-53_PM.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\[SUB_HEADLINE_9][LINE_HEIGHT_64_64_]_2016-04-11_12-17_AM.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\Bangla_OCR\\[SUB_HEADLINE_19][LINE_HEIGHT_46_]_2016-05-15_01-53_PM.jpg");
         PixelFileWriter pixelFileWriter = new PixelFileWriter();
         ViewerUI.show("ORIGINAL", inputImageMat, ViewableUI.SHOW_ORIGINAL);
 
@@ -109,7 +114,7 @@ public class NewsAnalysis {
         Histogram.showHistogram("FULL_IMAGE_HISTOGRAM", filteredImage);
 
         /**
-         * Canny operation is performed for edge detection of an image
+         * Canny operation is performed for e.dge detection of an image
          */
         Imgproc.Canny(filteredImage, filteredImage, 10, 150);
         ViewerUI.show("EDGE_DETECTED", filteredImage, ViewableUI.SHOW_EDGE_DETECTION);
@@ -169,7 +174,8 @@ public class NewsAnalysis {
             Mat subBlock = new Mat();
             Imgproc.cvtColor(borderItem.getBlock(), subBlock, Imgproc.COLOR_RGB2GRAY, 0);
             Imgproc.threshold(subBlock, subBlock, 175, 255, Imgproc.THRESH_BINARY);
-            LineHeightCalculator heightCalculator = new LineHeightCalculator();
+            ZLineHeightCalculator heightCalculator = new ZLineHeightCalculator();
+//            LineHeightCalculator heightCalculator = new LineHeightCalculator();
             int blockHeight = heightCalculator.getLineHeight(subBlock,i);
             totalHeight += blockLineHeights[i]=blockHeight;
             subBlock.release();

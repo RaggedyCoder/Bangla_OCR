@@ -1,9 +1,7 @@
 package edu.sust.cse.util;
 
 import org.opencv.core.Mat;
-import org.opencv.imgproc.Imgproc;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -13,7 +11,7 @@ import java.util.stream.Collectors;
 /**
  * Created by Biswajit Debnath on 10-Apr-16.
  */
-public class LineHeightCalculator {
+public class LineHeightCalculatorCopy {
 
     private  int height = 0;
     private  int width = 0;
@@ -135,8 +133,16 @@ public class LineHeightCalculator {
 
         int lineHeight=-1;
         if(normalizeHeights.size()>0) {
+/*
             Collections.sort(normalizeHeights);
             lineHeight= normalizeHeights.get(normalizeHeights.size() - 1);
+*/
+            int avarage=0;
+            int sum2=0;
+            for(int height:normalizeHeights){
+                sum2+=height;
+            }
+            lineHeight=sum2/normalizeHeights.size();
         }else if(heights.size()>0){
             Collections.sort(heights);
             lineHeight= heights.get(heights.size() - 1);

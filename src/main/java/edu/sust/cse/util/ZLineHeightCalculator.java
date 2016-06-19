@@ -18,10 +18,10 @@ public class ZLineHeightCalculator {
     private int CONTINOUS_ROW_FOR_LINE_MAKING=10;
 
     public int getLineHeight(Mat subMat, int blockId) {
-        System.out.println("BLOCK ID >>> " + blockId);
+      //  System.out.println("BLOCK ID >>> " + blockId);
         Mat rowMatrix;
         PixelFileWriter  pixelFileWriter = new PixelFileWriter();
-        pixelFileWriter.writeInFile("Pixel.txt","o",".",subMat);
+      //  pixelFileWriter.writeInFile("Pixel.txt","o",".",subMat);
         int numOfRows = subMat.rows();
         int max = Integer.MIN_VALUE;
         int blackPixels;
@@ -31,7 +31,7 @@ public class ZLineHeightCalculator {
             blackPixels = rowMatrix.cols()-Core.countNonZero(rowMatrix);
             blackBits[i] = blackPixels>OVERLAPPED_PIXEL?blackPixels:0;
             max = Math.max(blackPixels, max);
-            System.out.println(i+">>>"+blackBits[i]);
+     //       System.out.println(i+">>>"+blackBits[i]);
         }
 
 
@@ -53,7 +53,7 @@ public class ZLineHeightCalculator {
                 }
             }else{
                 if(continousRowFound>CONTINOUS_ROW_FOR_LINE_MAKING){
-                    System.out.println("MATRA LINE INDEX: " + index);
+                  //  System.out.println("MATRA LINE INDEX: " + index);
                     if(startMatraLineIndex==-1){
                         startMatraLineIndex=index;
                     }
@@ -69,10 +69,10 @@ public class ZLineHeightCalculator {
 
 
 
-        System.out.println("START MATRA LINE INDEX : " + startMatraLineIndex);
-        System.out.println("END MATRA LINE INDEX : " + endMatraLineIndex);
-        System.out.println("LINE COUNT : " + lineCount);
-        System.out.println("CONTINOUS ROW MAX : " + continousRowMax);
+//        System.out.println("START MATRA LINE INDEX : " + startMatraLineIndex);
+//        System.out.println("END MATRA LINE INDEX : " + endMatraLineIndex);
+//        System.out.println("LINE COUNT : " + lineCount);
+//        System.out.println("CONTINOUS ROW MAX : " + continousRowMax);
 
         if(endMatraLineIndex==startMatraLineIndex) return continousRowMax;
 

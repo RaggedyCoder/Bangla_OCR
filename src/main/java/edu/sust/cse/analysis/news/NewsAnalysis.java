@@ -2,6 +2,8 @@ package edu.sust.cse.analysis.news;
 
 import com.recognition.software.jdeskew.ImageUtil;
 
+import edu.sust.cse.analysis.util.SkewManager;
+import edu.sust.cse.analysis.util.BDeskew;
 import edu.sust.cse.analysis.util.Conversion;
 import edu.sust.cse.analysis.util.PointLengthCalculator;
 import edu.sust.cse.detection.algorithm.ImageBorderDetectionBFS;
@@ -52,7 +54,12 @@ public class NewsAnalysis {
         /*
         * For Tuman
        * C:\Users\sajid\Desktop\ScanImage\06-12-2015*/
-        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c-sk-1.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c-sk-2.jpg");
+        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c-sk-3.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c-sk-4.jpg");
+
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-02-300.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-300.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-04-300.jpg");
@@ -108,8 +115,9 @@ public class NewsAnalysis {
         Imgproc.threshold(filteredImage, threshedImage, 175, 255, Imgproc.THRESH_BINARY);
         filteredImage = threshedImage.clone();
 
-        ViewerUI.show("PIXEL_REPLACED_FILTER", threshedImage, ViewableUI.SHOW_NOISE_FILTER);
-
+        ViewerUI.show("PIXEL_REPLACED_FILTER", threshedImage, ViewableUI.SHOW_PIXEL_REPLACED_FILTER);
+        SkewManager skewManager = new BDeskew();
+        skewManager.deskew(threshedImage);
 
         Histogram.showHistogram("FULL_IMAGE_HISTOGRAM", filteredImage);
 
@@ -293,14 +301,20 @@ public class NewsAnalysis {
 
                 if (blockLineHeights[i] >= 100) {
                  //   Histogram.showHistogram("[HEADLINE_" + i + "][LH_" + lineHeight[i]+"]_HISTOGRAM", borderItems.get(i).getBlock());
+                    SkewManager deskew = new BDeskew();
+//                    deskew.computeSkew(borderItems.get(i).getBlock());
                     ViewerUI.show("[HEADLINE_" + i + "[LINE_HEIGHT_"+blockLineHeights[i]+"_]", borderItems.get(i).getBlock(), ViewableUI.SHOW_HEADING);
                     contentTypes[i] = ContentType.HEADLINE;
                 } else if (blockLineHeights[i] >= 45 && blockLineHeights[i] < 100) {
+//                    SkewManager deskew= new SkewManager();
+//                    deskew.computeSkew(borderItems.get(i).getBlock());
                    // Histogram.showHistogram("[SUB_HEADLINE_" + i + "][LH_" + lineHeight[i]+"]_HISTOGRAM", borderItems.get(i).getBlock());
                     ViewerUI.show("[SUB_HEADLINE_" + i + "][LINE_HEIGHT_"+blockLineHeights[i]+"_]", borderItems.get(i).getBlock(), ViewableUI.SHOW_SUB_HEADING);
                     contentTypes[i] = ContentType.SUB_HEADLINE;
 
                 } else if(blockLineHeights[i]>-1){
+//                    SkewManager deskew= new SkewManager();
+//                    deskew.computeSkew(borderItems.get(i).getBlock());
                    // Histogram.showHistogram("[COLUMN_" + i + "][LH_" + lineHeight[i] + "]_HISTOGRAM", borderItems.get(i).getBlock());
                     ViewerUI.show("[COLUMN_" + i + "][LINE_HEIGHT_"+blockLineHeights[i]+"_]", borderItems.get(i).getBlock(), ViewableUI.SHOW_COLUMN);
                     contentTypes[i] = ContentType.COLUMN;

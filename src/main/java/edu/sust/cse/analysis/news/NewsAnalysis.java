@@ -2,10 +2,7 @@ package edu.sust.cse.analysis.news;
 
 import com.recognition.software.jdeskew.ImageUtil;
 
-import edu.sust.cse.analysis.util.SkewManager;
-import edu.sust.cse.analysis.util.BDeskew;
-import edu.sust.cse.analysis.util.Conversion;
-import edu.sust.cse.analysis.util.PointLengthCalculator;
+import edu.sust.cse.analysis.util.*;
 import edu.sust.cse.detection.algorithm.ImageBorderDetectionBFS;
 import edu.sust.cse.item.BorderItem;
 
@@ -59,6 +56,7 @@ public class NewsAnalysis {
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c-sk-2.jpg");
         Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c-sk-3.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-01-300c-sk-4.jpg");
+//        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\dJRv8.jpg");
 
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-02-300.jpg");
 //        Mat inputImageMat = Highgui.imread("D:\\OpenCV_Library\\resources\\Scan_Img\\image\\06-12-2015\\sc-03-300.jpg");
@@ -116,7 +114,7 @@ public class NewsAnalysis {
         filteredImage = threshedImage.clone();
 
         ViewerUI.show("PIXEL_REPLACED_FILTER", threshedImage, ViewableUI.SHOW_PIXEL_REPLACED_FILTER);
-        SkewManager skewManager = new BDeskew();
+        SkewManager skewManager = new HLDeskew();
         skewManager.deskew(threshedImage);
 
         Histogram.showHistogram("FULL_IMAGE_HISTOGRAM", filteredImage);

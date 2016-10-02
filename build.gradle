@@ -13,6 +13,12 @@ repositories {
 dependencies {
     compile 'com.github.hoary.ffmpeg:FFmpeg-windows-x86:2.0.1.1'
     compile 'org.bytedeco:javacv:1.1'
+    // https://mvnrepository.com/artifact/org.apache.poi/poi
+    compile group: 'org.apache.poi', name: 'poi', version: '3.15'
+    // https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '3.15'
+
     compile files('libs\\opencv-2.4.11\\opencv\\build\\java\\opencv-2411.jar')
     compile files('libs\\tess4j-3.0.0-SNAPSHOT.jar')
 }
+

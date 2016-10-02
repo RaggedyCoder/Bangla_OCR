@@ -8,7 +8,8 @@ import org.opencv.imgproc.Imgproc;
 /**
  * Created by Biswajit Debnath on 18-Jun-16.
  */
-public class SDeskew extends SkewManager {
+public class SDesKew extends SkewManager {
+
     @Override
     public double computeSkew(Mat image) {
         Mat bitWiseNotImage = new Mat();

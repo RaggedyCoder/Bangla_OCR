@@ -15,6 +15,7 @@ public class HLDeskew extends SkewManager {
         Imgproc.cvtColor(img, gray, Imgproc.COLOR_BGR2GRAY);
         Imgproc.blur(gray, gray, new Size(3, 3));
 
+
         // detect the edges
         Mat edges = new Mat();
         int lowThreshold = 50;

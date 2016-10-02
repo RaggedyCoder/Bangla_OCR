@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by Biswajit Debnath on 18-Jun-16.
  */
-public class BDeskew extends SkewManager {
+public class BDeSkew extends SkewManager {
 
     @Override
     public double computeSkew(Mat image) {
@@ -43,8 +43,8 @@ public class BDeskew extends SkewManager {
        matOfPoint2f.fromList(points);
        RotatedRect rectBox = Imgproc.minAreaRect(matOfPoint2f);
         double angle = rectBox.angle;
-        if (angle < -45.)
-            angle += 90.;
+//        if (angle < -45.)
+//            angle += 90.;
 
         System.out.println("[BDESKEW][ANGLE][" + angle +"]");
         return angle;

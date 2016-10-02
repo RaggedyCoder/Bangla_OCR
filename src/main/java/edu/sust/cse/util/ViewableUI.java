@@ -19,9 +19,9 @@ public class ViewableUI {
     public static boolean SHOW_CONVERSION=false;
     public static boolean SHOW_IMAGE=true;
     public static boolean SHOW_IMAGE_REMOVED=false;
-    public static boolean SHOW_HEADING=false;
-    public static boolean SHOW_SUB_HEADING=false;
-    public static boolean SHOW_COLUMN=false;
+    public static boolean SHOW_HEADING=true;
+    public static boolean SHOW_SUB_HEADING=true;
+    public static boolean SHOW_COLUMN=true;
     public static boolean SHOW_GARBAGE=false;
     public static boolean SHOW_SUB_COLUMN=false;
     public static boolean SHOW_DEBUG_LOG=false;
